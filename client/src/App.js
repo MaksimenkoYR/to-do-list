@@ -1,12 +1,20 @@
 import React from 'react'
-import TaskList from './features/TaskList/TaskList'
+import {Provider} from 'react-redux'
+
+import store from './redux/store'
+
+import AddTask from './features/AddTask/AddTask'
+import TasksList from './features/TasksList/TasksList'
 
 const App = () => {
-  return (
-    <div>
-      <TaskList></TaskList>
-    </div>
-  )
+    return (
+        <Provider store={store}>
+            <div>
+                <AddTask></AddTask>
+                <TasksList></TasksList>
+            </div>
+        </Provider>
+    )
 }
 
 export default App
