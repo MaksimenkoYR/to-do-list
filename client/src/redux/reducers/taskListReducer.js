@@ -16,7 +16,7 @@ const taskListReducer = (state = initialState, action) => {
         }
         case DELETE_TASK: {
             const {taskId} = action.payload
-            let [completeCopy, incompleteCopy] = {...state}
+            let {complete: completeCopy, incomplete: incompleteCopy} = {...state}
             delete incompleteCopy[taskId]
             delete completeCopy[taskId]
             return {
