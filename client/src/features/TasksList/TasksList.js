@@ -7,7 +7,12 @@ const TasksList = ({tasks}) => {
         <div>
             <ul className='collection with-header'>
                 {tasks.incomplete.map(i => (
-                    <li class='collection-item'>{i.taskName}</li>
+                    <ListItem task={i} />
+                ))}
+            </ul>
+            <ul className='collection with-header'>
+                {tasks.complete.map(i => (
+                    <ListItem task={i} />
                 ))}
             </ul>
         </div>

@@ -1,16 +1,38 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {completeTask, incompleteTask} from '../../redux/action'
 
-const ListItem = () => {
+const ListItem = ({task, ...props}) => {
     return (
         <li className='collection-item'>
             <div>
-                Alvin
-                <a href='#!' className='secondary-content'>
-                    <i className='material-icons'>send</i>
-                </a>
+                {task.taskName}
+                {task.isComplete ? (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    <a
+                        href='#'
+                        className='secondary-content waves-effect waves-light btn'
+                        onClick={() => {
+                            props.incompleteTask(task.taskId)
+                        }}
+                    >
+                        incomplete
+                    </a>
+                ) : (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    <a
+                        href='#'
+                        className='secondary-content waves-effect waves-light btn'
+                        onClick={() => {
+                            props.completeTask(task.taskId)
+                        }}
+                    >
+                        complete
+                    </a>
+                )}
             </div>
         </li>
     )
 }
 
-export default ListItem
+export default connect(null, {completeTask, incompleteTask})(ListItem)

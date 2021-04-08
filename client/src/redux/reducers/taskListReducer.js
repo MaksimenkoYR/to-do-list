@@ -1,8 +1,8 @@
-import {ADD_TASK, DELETE_TASK, COMPLETE_TASK} from '../actionTypes'
+import {ADD_TASK, DELETE_TASK, COMPLETE_TASK, INCOMPLETE_TASK} from '../actionTypes'
 
 const initialState = {
-    complete: [],
-    incomplete: [],
+    complete: {},
+    incomplete: {},
 }
 
 const taskListReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const taskListReducer = (state = initialState, action) => {
             const {task} = action.payload
             return {
                 ...state,
-                incomplete: {...state.incomplete, [task.taskId]: task},
+                incomplete: {...state.incomplete, [task.taskId]: {...task, isComplete: false}},
             }
         }
         case DELETE_TASK: {
@@ -26,14 +26,34 @@ const taskListReducer = (state = initialState, action) => {
             }
         }
         case COMPLETE_TASK: {
+            console.log(action)
             const {taskId} = action.payload
             let incompleteCopy = {...state.incomplete}
             delete incompleteCopy[taskId]
             return {
                 ...state,
+                complete: {
+                    ...state.complete,
+                    [taskId]: {...state.incomplete[taskId], isComplete: true},
+                },
                 incomplete: {...incompleteCopy},
             }
         }
+        case INCOMPLETE_TASK: {
+            console.log(action)
+            const {taskId} = action.payload
+            let completeCopy = {...state.complete}
+            delete completeCopy[taskId]
+            return {
+                ...state,
+                incomplete: {
+                    ...state.incomplete,
+                    [taskId]: {...state.complete[taskId], isComplete: false},
+                },
+                complete: {...completeCopy},
+            }
+        }
+
         default: {
             return state
         }
