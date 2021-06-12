@@ -4,6 +4,7 @@ const taskRouter = require('./routes/taskRouter')
 const authRouter = require('./routes/authRouter')
 const mongoose = require('mongoose')
 const app = express()
+const authMiddleware = require('./authMiddleware')
 
 const PORT = process.env.PORT || 5000
 const URL =
@@ -12,7 +13,7 @@ const URL =
 app.use(cors())
 app.use(express.json())
 app.use('/task', taskRouter)
-app.use('/auth', authRouter)
+app.use('/auth',  authRouter)
 
 async function start() {
     try {

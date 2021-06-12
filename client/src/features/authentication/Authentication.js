@@ -2,23 +2,34 @@ import React, {useEffect, useState} from 'react'
 import {Redirect, Route} from 'react-router'
 import LoginPage from '../../pages/LoginPage'
 import RegistrationPage from '../../pages/RegistrationPage'
-
+import useGetCookie from '../../hooks/useGetCookie'
 const Authentication = props => {
-    // useEffect(() => {
-    //     async function req() {
-    //         const response = await fetch('http://localhost:5000/auth', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json;charset=utf-8',
-    //             },
-    //         })
-    //     }
-    //     req()
-    // })
+    const token = useGetCookie('token')
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    useEffect(() => {
+        async function req() {
+            const response = await fetch('http://localhost:5000/auth/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    authorization: token,
+                },
+            })
+            if (response.ok) {
+                setIsAuthenticated(true)
+            }
+        }
+        req()
+    })
 
     if (isAuthenticated) {
-        return <>{props.children}</>
+        document.cookie = ''
+        return (
+            <>
+                <Redirect to='/' />
+                {props.children}
+            </>
+        )
     } else {
         return (
             <>

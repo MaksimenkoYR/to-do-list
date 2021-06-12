@@ -18,7 +18,12 @@ const LoginForm = ({setIsAuthenticated}) => {
                 },
                 body: JSON.stringify(loginData),
             })
-            response.ok && setIsAuthenticated(true)
+
+            if (response.ok) {
+                setIsAuthenticated(true)
+                const {token} = await response.json()
+                document.cookie = `token=${token}`
+            }
         } catch (error) {
             console.log(error)
         }
@@ -53,19 +58,19 @@ const LoginForm = ({setIsAuthenticated}) => {
                 </div>
                 <div className='row'>
                     <button
-                        className='col s4 offset-s1 btn waves-effect waves-light'
-                        type='submit'
-                        name='action'
-                        onClick={() => history.replace('/registration')}
-                    >
-                        Sign-up
-                    </button>
-                    <button
                         className=' col s4 offset-s2 btn waves-effect waves-light'
                         type='submit'
                         name='action'
                     >
                         Login
+                    </button>
+                    <button
+                        className='col s4 offset-s1 btn waves-effect waves-light'
+                        type='submit'
+                        name='action'
+                        onClick={() => history.push('/registration')}
+                    >
+                        Sign-up
                     </button>
                 </div>
             </form>
