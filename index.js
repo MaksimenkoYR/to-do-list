@@ -12,8 +12,8 @@ const URL =
 
 app.use(cors())
 app.use(express.json())
-app.use('/task', taskRouter)
-app.use('/auth',  authRouter)
+app.use('/task', authMiddleware, taskRouter)
+app.use('/auth', authRouter)
 
 async function start() {
     try {

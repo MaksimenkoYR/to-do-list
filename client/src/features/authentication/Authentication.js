@@ -26,7 +26,7 @@ const Authentication = props => {
         document.cookie = ''
         return (
             <>
-                <Redirect to='/' />
+                <Redirect to='/task' />
                 {props.children}
             </>
         )

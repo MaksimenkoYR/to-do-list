@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const User = require('../models/User')
+const TaskList = require('../models/TaskList')
 const bcrypt = require('bcrypt')
 const router = Router()
 const jwt = require('jsonwebtoken')
@@ -33,8 +34,11 @@ router.post(
                 return res.status(400).json({message: 'User with this email already exist'})
             }
             const hashPassword = bcrypt.hashSync(password, 10)
-            const user = new User({username, password: hashPassword, email})
+            const taskList = new TaskList({})
+            const user = new User({username, password: hashPassword, email, task: taskList._id})
             await user.save()
+            taskList.user = user._id
+            await taskList.save()
 
             return res.status(201).json({message: 'User successfully created '})
         } catch (error) {

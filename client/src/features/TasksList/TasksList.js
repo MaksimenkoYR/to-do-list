@@ -1,8 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ListItem from './ListItem'
 import {connect} from 'react-redux'
+import useGetCookie from '../../hooks/useGetCookie'
 const TasksList = ({tasks}) => {
-    console.log(tasks)
+    const token = useGetCookie('token')
+    useEffect(() => {
+        async function req() {
+            const response = await fetch('http://localhost:5000/task/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    authorization: token,
+                },
+            })
+            console.log(response)
+        }
+        req()
+    })
     return (
         <div>
             <ul className='collection with-header'>
