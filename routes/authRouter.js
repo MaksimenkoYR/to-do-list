@@ -34,8 +34,8 @@ router.post(
                 return res.status(400).json({message: 'User with this email already exist'})
             }
             const hashPassword = bcrypt.hashSync(password, 10)
-            const taskList = new TaskList({})
-            const user = new User({username, password: hashPassword, email, task: taskList._id})
+            const taskList = new TaskList()
+            const user = new User({username, password: hashPassword, email, taskList: taskList._id})
             await user.save()
             taskList.user = user._id
             await taskList.save()

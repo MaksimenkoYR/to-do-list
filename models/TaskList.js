@@ -1,8 +1,7 @@
 const {Schema, model} = require('mongoose')
 
 const taskList = new Schema({
-    incomplete: Object,
-    complete: Object,
+    tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
     user: {type: Schema.Types.ObjectId, ref: 'User'},
 })
 
