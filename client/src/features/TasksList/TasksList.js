@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import ListItem from './ListItem'
 import {connect} from 'react-redux'
-import useGetCookie from '../../hooks/useGetCookie'
+import {useGetCookie} from '../../hooks/useCookie'
 const TasksList = ({tasks}) => {
     const token = useGetCookie('token')
     useEffect(() => {

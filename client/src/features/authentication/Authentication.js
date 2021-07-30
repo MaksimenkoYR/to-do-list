@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Redirect, Route} from 'react-router'
 import LoginPage from '../../pages/LoginPage'
 import RegistrationPage from '../../pages/RegistrationPage'
-import useGetCookie from '../../hooks/useGetCookie'
+import {useGetCookie} from '../../hooks/useCookie'
 const Authentication = props => {
     const token = useGetCookie('token')
     const [isAuthenticated, setIsAuthenticated] = useState(false)
