@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import ListItem from './ListItem'
 import {connect} from 'react-redux'
 import {useGetCookie} from '../../hooks/useCookie'
+import {Box, Heading} from '@chakra-ui/react'
 const TasksList = ({tasks}) => {
     const token = useGetCookie('token')
     useEffect(() => {
@@ -18,18 +19,23 @@ const TasksList = ({tasks}) => {
         req()
     })
     return (
-        <div>
+        <Box pt='4'>
             <ul className='collection with-header'>
                 {tasks.incomplete.map(i => (
                     <ListItem task={i} />
                 ))}
             </ul>
+
+            <Heading px='2' pb='2' size='md'>
+                Completed
+            </Heading>
+
             <ul className='collection with-header'>
                 {tasks.complete.map(i => (
                     <ListItem task={i} />
                 ))}
             </ul>
-        </div>
+        </Box>
     )
 }
 const mapStateToProps = state => {

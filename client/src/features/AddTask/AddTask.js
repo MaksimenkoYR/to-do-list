@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import useGenerateId from '../../hooks/useGenerateId'
 import {useGetCookie} from '../../hooks/useCookie'
 import {addTask} from '../../redux/action'
+import {Box, Button, Input} from '@chakra-ui/react'
 
 const AddTask = props => {
     const generateId = useGenerateId()
@@ -13,8 +14,8 @@ const AddTask = props => {
     }
 
     const HandelSubmit = e => {
-        const payload = {task: {name: taskName}}
         e.preventDefault()
+        const payload = {task: {name: taskName}}
         props.addTask({taskId: generateId(), taskName})
         fetch('http://localhost:5000/task/add', {
             method: 'POST',
@@ -28,24 +29,12 @@ const AddTask = props => {
     return (
         <div>
             <form onSubmit={HandelSubmit}>
-                <div className='row'>
-                    <div className='col s9 m10 l11'>
-                        <input
-                            onInput={handleInput}
-                            id='textarea1'
-                            className='materialize-textarea'
-                        ></input>
-                    </div>
-                    <div className='col s3 m2 l1'>
-                        <button
-                            className='btn waves-effect waves-light'
-                            type='submit'
-                            name='action'
-                        >
-                            add
-                        </button>
-                    </div>
-                </div>
+                <Box display='flex'>
+                    <Input mr='2' onInput={handleInput} id='textarea1'></Input>
+                    <Button colorScheme='blue' type='submit' name='action'>
+                        add
+                    </Button>
+                </Box>
             </form>
         </div>
     )

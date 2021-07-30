@@ -1,57 +1,70 @@
+import {Box, Button, Flex, Spacer, Text} from '@chakra-ui/react'
 import React from 'react'
 import {connect} from 'react-redux'
 import {completeTask, incompleteTask, deleteTask} from '../../redux/action'
 
 const ListItem = ({task, ...props}) => {
     return (
-        <li className='collection-item'>
-            <div>
-                {task.taskName}
-                {task.isComplete ? (
-                    <>
-                        <a
+        <Flex mb='2' p='1' height='auto' border='1px' borderColor='gray.300' borderRadius='7'>
+            <Box width='80%'>{task.taskName}</Box>
+            {task.isComplete ? (
+                <>
+                    <Spacer />
+                    <Box>
+                        <Button
+                            mr='1'
+                            size='sm'
                             href='#'
-                            className='secondary-content waves-effect waves-light btn'
-                            onClick={() => {
-                                props.deleteTask(task.taskId)
-                            }}
-                        >
-                            delete
-                        </a>
-                        <a
-                            href='#'
-                            className='secondary-content waves-effect waves-light btn'
                             onClick={() => {
                                 props.incompleteTask(task.taskId)
                             }}
                         >
                             incomplete
-                        </a>
-                    </>
-                ) : (
-                    <>
-                        <a
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button
+                            colorScheme='red'
+                            size='sm'
                             href='#'
-                            className='secondary-content waves-effect waves-light btn'
                             onClick={() => {
                                 props.deleteTask(task.taskId)
                             }}
                         >
                             delete
-                        </a>
-                        <a
+                        </Button>
+                    </Box>
+                </>
+            ) : (
+                <>
+                    <Spacer />
+                    <Box>
+                        <Button
+                            size='sm'
+                            mr='1'
+                            colorScheme='green'
                             href='#'
-                            className='secondary-content waves-effect waves-light btn'
                             onClick={() => {
                                 props.completeTask(task.taskId)
                             }}
                         >
                             complete
-                        </a>
-                    </>
-                )}
-            </div>
-        </li>
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button
+                            size='sm'
+                            colorScheme='red'
+                            onClick={() => {
+                                props.deleteTask(task.taskId)
+                            }}
+                        >
+                            delete
+                        </Button>
+                    </Box>
+                </>
+            )}
+        </Flex>
     )
 }
 

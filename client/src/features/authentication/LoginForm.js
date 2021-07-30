@@ -1,6 +1,18 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
+import styled from 'styled-components'
+import {Input, Button} from '@chakra-ui/react'
 
+const Center = styled.div`
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 100px;
+`
+const ButtonContainer = styled.div`
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-around;
+`
 const LoginForm = ({setIsAuthenticated}) => {
     const [loginData, setLoginData] = useState({})
     const history = useHistory()
@@ -30,51 +42,35 @@ const LoginForm = ({setIsAuthenticated}) => {
     }
 
     return (
-        <div className='row'>
-            <form className='col s12' onSubmit={onSubmitHandler}>
-                <div className='row'>
-                    <div className='input-field col s12'>
-                        <input
-                            id='email'
-                            type='email'
-                            className='validate'
-                            name='email'
-                            onChange={onChangeHandler}
-                        />
-                        <label htmlFor='email'>Email</label>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s12'>
-                        <input
-                            id='password'
-                            type='password'
-                            className='validate'
-                            name='password'
-                            onChange={onChangeHandler}
-                        />
-                        <label htmlFor='password'>Password</label>
-                    </div>
-                </div>
-                <div className='row'>
-                    <button
-                        className=' col s4 offset-s2 btn waves-effect waves-light'
+        <Center>
+            <form onSubmit={onSubmitHandler}>
+                <label htmlFor='email'>Email</label>
+                <Input id='email' type='email' name='email' onChange={onChangeHandler} />
+                <label htmlFor='password'>Password</label>
+                <Input id='password' type='password' name='password' onChange={onChangeHandler} />
+                <ButtonContainer>
+                    <Button
+                        colorScheme='blue'
+                        variant='outline'
                         type='submit'
                         name='action'
+                        flexGrow='1'
+                        mr='1'
                     >
                         Login
-                    </button>
-                    <button
-                        className='col s4 offset-s1 btn waves-effect waves-light'
+                    </Button>
+                    <Button
+                        colorScheme='blue'
                         type='submit'
                         name='action'
                         onClick={() => history.push('/registration')}
+                        flexGrow='1'
                     >
                         Sign-up
-                    </button>
-                </div>
+                    </Button>
+                </ButtonContainer>
             </form>
-        </div>
+        </Center>
     )
 }
 

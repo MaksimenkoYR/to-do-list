@@ -9,8 +9,8 @@ import {Router} from 'react-router'
 import Authentication from './features/authentication/Authentication'
 import {createBrowserHistory} from 'history'
 import styled from 'styled-components'
-import Button from './styledComponents/Button'
 import {useDeleteCookie} from './hooks/useCookie'
+import {Box, Button, Container} from '@chakra-ui/react'
 window.store = store
 const history = createBrowserHistory()
 const Header = styled.header`
@@ -18,12 +18,9 @@ const Header = styled.header`
     top: 0px;
     display: flex;
     justify-content: flex-end;
-
     height: 50px;
+
     padding: 5px 10px;
-    border-bottom: 1px solid #d1cfcf;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     margin-bottom: 5px;
 `
 
@@ -35,6 +32,8 @@ const App = () => {
                 <Authentication>
                     <Header>
                         <Button
+                            colorScheme='blue'
+                            variant='outline'
                             onClick={() => {
                                 deleteToken()
                                 window.location.reload()
@@ -43,10 +42,10 @@ const App = () => {
                             Log Out
                         </Button>
                     </Header>
-                    <div>
+                    <Box pt='6' px='20'>
                         <AddTask></AddTask>
                         <TasksList></TasksList>
-                    </div>
+                    </Box>
                 </Authentication>
             </Router>
         </Provider>

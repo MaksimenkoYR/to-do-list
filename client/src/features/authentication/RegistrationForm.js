@@ -1,5 +1,20 @@
+import {
+    Input,
+    Button,
+    Container,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+} from '@chakra-ui/react'
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
+import styled from 'styled-components'
+const Center = styled.div`
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 100px;
+`
 
 const RegistrationForm = () => {
     const [registrationData, setRegistrationData] = useState({})
@@ -27,68 +42,65 @@ const RegistrationForm = () => {
             console.log(error)
         }
     }
-    if (registrationSuccess) {
+    if (true) {
         return (
-            <div id='card' className='animated fadeIn'>
-                <div id='upper-side'>
-                    <h3 id='status'>Success</h3>
-                </div>
-                <div id='lower-side'>
-                    <p id='message'>
-                        Congratulations, your account has been successfully created. Now you can
-                        login
-                    </p>
-                    <button href='' id='contBtn' onClick={() => history.replace('/login')}>
-                        Continue
-                    </button>
-                </div>
-            </div>
+            <Alert
+                status='success'
+                variant='subtle'
+                flexDirection='column'
+                alignItems='center'
+                justifyContent='center'
+                textAlign='center'
+                height='200px'
+            >
+                <AlertIcon boxSize='40px' mr={0} />
+                <AlertTitle mt={4} mb={1} fontSize='lg'>
+                    Registratuin Successful
+                </AlertTitle>
+                <AlertDescription maxWidth='sm'>
+                    Use your email and password to login
+                </AlertDescription>
+                <Button mt='2' colorScheme='green' onClick={() => history.replace('/login')}>
+                    Continue
+                </Button>
+            </Alert>
         )
     }
     return (
-        <div className='row'>
-            <form className='col s12' onSubmit={onSubmitHandler}>
-                <div className='row'>
-                    <div className='input-field col s12'>
-                        <input
-                            id='name'
-                            name='username'
-                            type='text'
-                            className='validate'
-                            onChange={onChangeHandler}
-                        />
-                        <label htmlFor='name'>Name</label>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s12'>
-                        <input
-                            id='email'
-                            type='email'
-                            className='validate'
-                            name='email'
-                            onChange={onChangeHandler}
-                        />
-                        <label htmlFor='email'>Email</label>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='input-field col s12'>
-                        <input
-                            id='password'
-                            type='password'
-                            className='validate'
-                            name='password'
-                            onChange={onChangeHandler}
-                        />
-                        <label htmlFor='password'>Password</label>
-                    </div>
-                </div>
-                <button className='btn waves-effect waves-light' type='submit' name='action'>
-                    Sign-up
-                </button>
-            </form>
-        </div>
+        <>
+            <Center>
+                <form onSubmit={onSubmitHandler}>
+                    <label htmlFor='name'>Name</label>
+                    <Input
+                        id='name'
+                        name='username'
+                        type='text'
+                        className='validate'
+                        onChange={onChangeHandler}
+                    />
+                    <label htmlFor='email'>Email</label>
+                    <Input id='email' type='email' name='email' onChange={onChangeHandler} />
+                    <label htmlFor='password'>Password</label>
+                    <Input
+                        id='password'
+                        type='password'
+                        name='password'
+                        onChange={onChangeHandler}
+                    />
+                    <Container display='flex' p='0' pt='5'>
+                        <Button
+                            flexGrow='1'
+                            colorScheme='blue'
+                            variant='outline'
+                            type='submit'
+                            name='action'
+                        >
+                            Sign-up
+                        </Button>
+                    </Container>
+                </form>
+            </Center>
+        </>
     )
 }
 
