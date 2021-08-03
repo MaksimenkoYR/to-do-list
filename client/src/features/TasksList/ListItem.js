@@ -6,8 +6,8 @@ import {completeTask, incompleteTask, deleteTask} from '../../redux/action'
 const ListItem = ({task, ...props}) => {
     return (
         <Flex mb='2' p='1' height='auto' border='1px' borderColor='gray.300' borderRadius='7'>
-            <Box width='80%'>{task.taskName}</Box>
-            {task.isComplete ? (
+            <Box width='80%'>{task.name}</Box>
+            {task.completed ? (
                 <>
                     <Spacer />
                     <Box>

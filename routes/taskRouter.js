@@ -4,9 +4,9 @@ const TaskList = require('../models/TaskList')
 const router = Router()
 
 router.post('/', async (req, res) => {
-    const taskList = await TaskList.findOne({user: req.user.userId})
+    const taskList = await TaskList.findOne({user: req.user.userId}).populate('tasks')
 
-    res.status(200).json(taskList)
+    res.status(200).json(taskList.tasks)
 })
 router.post('/add', async (req, res) => {
     try {
@@ -14,6 +14,9 @@ router.post('/add', async (req, res) => {
 
         const task = new Task({name: req.body.task.name, list: taskList._id})
         await task.save()
+        taskList.tasks.push(task)
+        await taskList.save()
+
         res.status(200).json({task, message: 'task seccessfully created'})
     } catch (error) {
         console.log(error)

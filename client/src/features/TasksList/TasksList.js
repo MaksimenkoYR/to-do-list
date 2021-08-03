@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import ListItem from './ListItem'
 import {connect} from 'react-redux'
 import {useGetCookie} from '../../hooks/useCookie'
 import {Box, Heading} from '@chakra-ui/react'
-const TasksList = ({tasks}) => {
+const TasksList = () => {
     const token = useGetCookie('token')
+    const [tasks, setTasks] = useState([])
     useEffect(() => {
         async function req() {
             const response = await fetch('http://localhost:5000/task/', {
@@ -14,16 +15,19 @@ const TasksList = ({tasks}) => {
                     authorization: token,
                 },
             })
-            console.log(response)
+            const tasks = await response.json()
+            setTasks(tasks)
         }
         req()
-    })
+    }, [])
     return (
         <Box pt='4'>
             <ul className='collection with-header'>
-                {tasks.incomplete.map(i => (
-                    <ListItem task={i} />
-                ))}
+                {tasks.map(i => {
+                    if (!i.completed) {
+                        return <ListItem task={i} />
+                    }
+                })}
             </ul>
 
             <Heading px='2' pb='2' size='md'>
@@ -31,16 +35,19 @@ const TasksList = ({tasks}) => {
             </Heading>
 
             <ul className='collection with-header'>
-                {tasks.complete.map(i => (
-                    <ListItem task={i} />
-                ))}
+                {tasks.map(i => {
+                    if (i.completed) {
+                        return <ListItem task={i} />
+                    }
+                })}
             </ul>
         </Box>
     )
 }
-const mapStateToProps = state => {
-    const complete = Object.values(state.taskListReducer.complete)
-    const incomplete = Object.values(state.taskListReducer.incomplete)
-    return {tasks: {complete, incomplete}}
-}
-export default connect(mapStateToProps)(TasksList)
+// const mapStateToProps = state => {
+//     const complete = Object.values(state.taskListReducer.complete)
+//     const incomplete = Object.values(state.taskListReducer.incomplete)
+//     return {tasks: {complete, incomplete}}
+// }
+// export default connect(mapStateToProps)(TasksList)
+export default TasksList
