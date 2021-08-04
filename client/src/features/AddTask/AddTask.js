@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
-import {connect} from 'react-redux'
 import useGenerateId from '../../hooks/useGenerateId'
 import {useGetCookie} from '../../hooks/useCookie'
-import {addTask} from '../../redux/action'
 import {Box, Button, Input} from '@chakra-ui/react'
 
 const AddTask = props => {
@@ -40,4 +38,4 @@ const AddTask = props => {
     )
 }
 
-export default connect(null, {addTask})(AddTask)
+export default AddTask

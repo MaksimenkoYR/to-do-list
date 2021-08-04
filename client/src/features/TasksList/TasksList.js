@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import ListItem from './ListItem'
-import {connect} from 'react-redux'
 import {useGetCookie} from '../../hooks/useCookie'
 import {Box, Heading} from '@chakra-ui/react'
 const TasksList = () => {
@@ -44,10 +43,5 @@ const TasksList = () => {
         </Box>
     )
 }
-// const mapStateToProps = state => {
-//     const complete = Object.values(state.taskListReducer.complete)
-//     const incomplete = Object.values(state.taskListReducer.incomplete)
-//     return {tasks: {complete, incomplete}}
-// }
-// export default connect(mapStateToProps)(TasksList)
+
 export default TasksList

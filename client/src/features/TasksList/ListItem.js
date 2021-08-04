@@ -1,7 +1,5 @@
 import {Box, Button, Flex, Spacer, Text} from '@chakra-ui/react'
 import React from 'react'
-import {connect} from 'react-redux'
-import {completeTask, incompleteTask, deleteTask} from '../../redux/action'
 
 const ListItem = ({task, ...props}) => {
     return (
@@ -68,4 +66,4 @@ const ListItem = ({task, ...props}) => {
     )
 }
 
-export default connect(null, {completeTask, incompleteTask, deleteTask})(ListItem)
+export default ListItem
