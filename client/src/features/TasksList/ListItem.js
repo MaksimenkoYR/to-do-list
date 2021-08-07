@@ -1,7 +1,7 @@
 import {Box, Button, Flex, Spacer, Text} from '@chakra-ui/react'
 import React from 'react'
 
-const ListItem = ({task, ...props}) => {
+const ListItem = ({task, taskActions}) => {
     return (
         <Flex mb='2' p='1' height='auto' border='1px' borderColor='gray.300' borderRadius='7'>
             <Box width='80%'>{task.name}</Box>
@@ -14,7 +14,7 @@ const ListItem = ({task, ...props}) => {
                             size='sm'
                             href='#'
                             onClick={() => {
-                                props.incompleteTask(task.taskId)
+                                taskActions.incompleteTask(task._id)
                             }}
                         >
                             incomplete
@@ -26,7 +26,7 @@ const ListItem = ({task, ...props}) => {
                             size='sm'
                             href='#'
                             onClick={() => {
-                                props.deleteTask(task.taskId)
+                                taskActions.deleteTask(task._id)
                             }}
                         >
                             delete
@@ -43,7 +43,7 @@ const ListItem = ({task, ...props}) => {
                             colorScheme='green'
                             href='#'
                             onClick={() => {
-                                props.completeTask(task.taskId)
+                                taskActions.completeTask(task._id)
                             }}
                         >
                             complete
@@ -54,7 +54,7 @@ const ListItem = ({task, ...props}) => {
                             size='sm'
                             colorScheme='red'
                             onClick={() => {
-                                props.deleteTask(task.taskId)
+                                taskActions.deleteTask(task._id)
                             }}
                         >
                             delete

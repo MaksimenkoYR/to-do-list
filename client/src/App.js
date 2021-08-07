@@ -8,6 +8,8 @@ import {createBrowserHistory} from 'history'
 import styled from 'styled-components'
 import {useDeleteCookie} from './hooks/useCookie'
 import {Box, Button, Container} from '@chakra-ui/react'
+import TaskState from './features/Task'
+import Task from './features/Task'
 const history = createBrowserHistory()
 const Header = styled.header`
     position: sticky;
@@ -38,8 +40,7 @@ const App = () => {
                     </Button>
                 </Header>
                 <Box pt='6' px='20'>
-                    <AddTask></AddTask>
-                    <TasksList></TasksList>
+                    <Task />
                 </Box>
             </Authentication>
         </Router>

@@ -12,7 +12,7 @@ router.post('/add', async (req, res) => {
     try {
         const taskList = await TaskList.findOne({user: req.user.userId})
 
-        const task = new Task({name: req.body.task.name, list: taskList._id})
+        const task = new Task({name: req.body.payload.name, list: taskList._id})
         await task.save()
         taskList.tasks.push(task)
         await taskList.save()

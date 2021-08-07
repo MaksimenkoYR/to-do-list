@@ -3,7 +3,7 @@ import useGenerateId from '../../hooks/useGenerateId'
 import {useGetCookie} from '../../hooks/useCookie'
 import {Box, Button, Input} from '@chakra-ui/react'
 
-const AddTask = props => {
+const AddTask = ({addTask}) => {
     const generateId = useGenerateId()
     const [taskName, setTaskName] = useState(null)
     const token = useGetCookie('token')
@@ -13,15 +13,15 @@ const AddTask = props => {
 
     const HandelSubmit = e => {
         e.preventDefault()
-        const payload = {task: {name: taskName}}
-        props.addTask({taskId: generateId(), taskName})
+        const task = {name: taskName, _id: generateId(), completed: false}
+        addTask(task)
         fetch('http://localhost:5000/task/add', {
             method: 'POST',
             headers: {
                 authorization: token,
                 'Content-Type': 'application/json;charset=utf-8',
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({payload: task}),
         })
     }
     return (

@@ -2,29 +2,13 @@ import React, {useEffect, useState} from 'react'
 import ListItem from './ListItem'
 import {useGetCookie} from '../../hooks/useCookie'
 import {Box, Heading} from '@chakra-ui/react'
-const TasksList = () => {
-    const token = useGetCookie('token')
-    const [tasks, setTasks] = useState([])
-    useEffect(() => {
-        async function req() {
-            const response = await fetch('http://localhost:5000/task/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    authorization: token,
-                },
-            })
-            const tasks = await response.json()
-            setTasks(tasks)
-        }
-        req()
-    }, [])
+const TasksList = ({tasks, taskActions}) => {
     return (
         <Box pt='4'>
             <ul className='collection with-header'>
                 {tasks.map(i => {
                     if (!i.completed) {
-                        return <ListItem task={i} />
+                        return <ListItem taskActions={taskActions} task={i} />
                     }
                 })}
             </ul>
@@ -36,7 +20,7 @@ const TasksList = () => {
             <ul className='collection with-header'>
                 {tasks.map(i => {
                     if (i.completed) {
-                        return <ListItem task={i} />
+                        return <ListItem taskActions={taskActions} task={i} />
                     }
                 })}
             </ul>
