@@ -15,14 +15,6 @@ const AddTask = ({addTask}) => {
         e.preventDefault()
         const task = {name: taskName, _id: generateId(), completed: false}
         addTask(task)
-        fetch('http://localhost:5000/task/add', {
-            method: 'POST',
-            headers: {
-                authorization: token,
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-            body: JSON.stringify({payload: task}),
-        })
     }
     return (
         <div>

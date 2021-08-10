@@ -24,12 +24,28 @@ const Task = () => {
 
     const taskActions = {
         addTask: task => {
+            fetch('http://localhost:5000/task/add', {
+                method: 'POST',
+                headers: {
+                    authorization: token,
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify({payload: task}),
+            })
             const clone = [...tasks]
             clone.push(task)
             setTasks(clone)
         },
 
         deleteTask: taskId => {
+            fetch('http://localhost:5000/task/delete', {
+                method: 'POST',
+                headers: {
+                    authorization: token,
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify({payload: {_id: taskId}}),
+            })
             const index = tasks.findIndex(task => taskId === task._id)
             if (index !== -1) {
                 const clone = [...tasks]
@@ -38,6 +54,14 @@ const Task = () => {
             }
         },
         completeTask: taskId => {
+            fetch('http://localhost:5000/task/complete', {
+                method: 'POST',
+                headers: {
+                    authorization: token,
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify({payload: {_id: taskId}}),
+            })
             setTasks(
                 tasks.map(task => {
                     if (task._id === taskId) {
@@ -48,6 +72,14 @@ const Task = () => {
             )
         },
         incompleteTask: taskId => {
+            fetch('http://localhost:5000/task/incomplete', {
+                method: 'POST',
+                headers: {
+                    authorization: token,
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify({payload: {_id: taskId}}),
+            })
             setTasks(
                 tasks.map(task => {
                     if (task._id === taskId) {
