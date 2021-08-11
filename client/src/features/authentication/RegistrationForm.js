@@ -42,7 +42,7 @@ const RegistrationForm = () => {
             console.log(error)
         }
     }
-    if (true) {
+    if (registrationSuccess) {
         return (
             <Alert
                 status='success'
