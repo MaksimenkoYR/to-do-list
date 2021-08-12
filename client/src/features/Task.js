@@ -9,15 +9,19 @@ const Task = () => {
 
     useEffect(() => {
         async function req() {
-            const response = await fetch('http://localhost:5000/task/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    authorization: token,
-                },
-            })
-            const tasks = await response.json()
-            setTasks(tasks)
+            try {
+                const response = await fetch('http://localhost:5000/task/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        authorization: token,
+                    },
+                })
+                const tasks = await response.json()
+                setTasks(tasks)
+            } catch (error) {
+                console.log(error)
+            }
         }
         req()
     }, [])
