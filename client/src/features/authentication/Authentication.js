@@ -8,7 +8,7 @@ const Authentication = props => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     useEffect(() => {
         async function req() {
-            const response = await fetch('http://localhost:5000/auth/user', {
+            const response = await fetch('/auth/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',

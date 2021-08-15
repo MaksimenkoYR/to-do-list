@@ -10,7 +10,7 @@ const Task = () => {
     useEffect(() => {
         async function req() {
             try {
-                const response = await fetch('http://localhost:5000/task/', {
+                const response = await fetch('/task/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8',
@@ -28,7 +28,7 @@ const Task = () => {
 
     const taskActions = {
         addTask: task => {
-            fetch('http://localhost:5000/task/add', {
+            fetch('/task/add', {
                 method: 'POST',
                 headers: {
                     authorization: token,
@@ -42,7 +42,7 @@ const Task = () => {
         },
 
         deleteTask: taskId => {
-            fetch('http://localhost:5000/task/delete', {
+            fetch('/task/delete', {
                 method: 'POST',
                 headers: {
                     authorization: token,
@@ -58,7 +58,7 @@ const Task = () => {
             }
         },
         completeTask: taskId => {
-            fetch('http://localhost:5000/task/complete', {
+            fetch('/task/complete', {
                 method: 'POST',
                 headers: {
                     authorization: token,
@@ -76,7 +76,7 @@ const Task = () => {
             )
         },
         incompleteTask: taskId => {
-            fetch('http://localhost:5000/task/incomplete', {
+            fetch('/task/incomplete', {
                 method: 'POST',
                 headers: {
                     authorization: token,

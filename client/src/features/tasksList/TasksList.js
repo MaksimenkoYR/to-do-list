@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import ListItem from './ListItem'
-import {useGetCookie} from '../../hooks/useCookie'
 import {Box, Heading} from '@chakra-ui/react'
 const TasksList = ({tasks, taskActions}) => {
     return (
@@ -8,7 +7,7 @@ const TasksList = ({tasks, taskActions}) => {
             <ul className='collection with-header'>
                 {tasks.map(i => {
                     if (!i.completed) {
-                        return <ListItem taskActions={taskActions} task={i} />
+                        return <ListItem key={i._id} taskActions={taskActions} task={i} />
                     }
                 })}
             </ul>
@@ -20,7 +19,7 @@ const TasksList = ({tasks, taskActions}) => {
             <ul className='collection with-header'>
                 {tasks.map(i => {
                     if (i.completed) {
-                        return <ListItem taskActions={taskActions} task={i} />
+                        return <ListItem key={i._id} taskActions={taskActions} task={i} />
                     }
                 })}
             </ul>

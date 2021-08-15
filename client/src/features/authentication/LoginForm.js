@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import styled from 'styled-components'
-import {Input, Button} from '@chakra-ui/react'
+import {Input, Button, Text} from '@chakra-ui/react'
 
 const Center = styled.div`
     margin: 0 auto;
@@ -14,6 +14,7 @@ const ButtonContainer = styled.div`
     justify-content: space-around;
 `
 const LoginForm = ({setIsAuthenticated}) => {
+    const [errorMessage, setErrorMessage] = useState(null)
     const [loginData, setLoginData] = useState({})
     const history = useHistory()
     const onChangeHandler = e => {
@@ -23,7 +24,7 @@ const LoginForm = ({setIsAuthenticated}) => {
         try {
             e.preventDefault()
 
-            const response = await fetch('http://localhost:5000/auth/login', {
+            const response = await fetch('/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
@@ -35,6 +36,8 @@ const LoginForm = ({setIsAuthenticated}) => {
                 setIsAuthenticated(true)
                 const {token} = await response.json()
                 document.cookie = `token=${token}`
+            } else {
+                setErrorMessage('Wrong password or email')
             }
         } catch (error) {
             console.log(error)
@@ -69,6 +72,9 @@ const LoginForm = ({setIsAuthenticated}) => {
                         Sign-up
                     </Button>
                 </ButtonContainer>
+                <Text mt='2' color='red'>
+                    {errorMessage}
+                </Text>
             </form>
         </Center>
     )

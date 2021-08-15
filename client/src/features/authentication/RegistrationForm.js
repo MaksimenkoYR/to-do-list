@@ -6,6 +6,7 @@ import {
     AlertIcon,
     AlertTitle,
     AlertDescription,
+    Text,
 } from '@chakra-ui/react'
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
@@ -17,6 +18,7 @@ const Center = styled.div`
 `
 
 const RegistrationForm = () => {
+    const [errorMessage, setErrorMessage] = useState(null)
     const [registrationData, setRegistrationData] = useState({})
     const [registrationSuccess, setRegistrationSuccess] = useState(false)
     const history = useHistory()
@@ -27,7 +29,7 @@ const RegistrationForm = () => {
         try {
             e.preventDefault()
 
-            const response = await fetch('http://localhost:5000/auth/registration', {
+            const response = await fetch('/auth/registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
@@ -37,6 +39,9 @@ const RegistrationForm = () => {
             console.log(response)
             if (response.ok) {
                 setRegistrationSuccess(true)
+            } else {
+                const {message} = await response.json()
+                setErrorMessage(message)
             }
         } catch (error) {
             console.log(error)
@@ -99,6 +104,9 @@ const RegistrationForm = () => {
                         </Button>
                     </Container>
                 </form>
+                <Text mt='2' color='red'>
+                    {errorMessage}
+                </Text>
             </Center>
         </>
     )
